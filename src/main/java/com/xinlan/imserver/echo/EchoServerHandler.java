@@ -7,6 +7,7 @@ import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.util.CharsetUtil;
 
 import java.nio.charset.Charset;
 
@@ -18,7 +19,7 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         ByteBuf buf = (ByteBuf)msg;
-        System.out.println("server received :" + buf.toString(Charset.defaultCharset()));
+        System.out.println("server received :" + buf.toString(CharsetUtil.UTF_8));
         ctx.write(buf);
     }
 

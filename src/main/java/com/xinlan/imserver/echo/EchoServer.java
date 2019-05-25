@@ -11,13 +11,15 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import java.net.InetSocketAddress;
 
 public class EchoServer {
+    public static final int PORT = 8899;
+
     private final int port;
 
     public EchoServer(int p) {
         this.port = p;
     }
 
-    public void start() {
+    public void start() throws InterruptedException {
         final EchoServerHandler echoHandler = new EchoServerHandler();
         EventLoopGroup group = new NioEventLoopGroup();
         try {
@@ -34,13 +36,13 @@ public class EchoServer {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
-            group.shutdownGracefully();
+            group.shutdownGracefully().sync();
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         System.out.println("Echo Server start ... ");
-        new EchoServer(Integer.parseInt(args[0])).start();
+        new EchoServer(PORT).start();
         System.out.println("Echo Server end");
     }
 }// end class
