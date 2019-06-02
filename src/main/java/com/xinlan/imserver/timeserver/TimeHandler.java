@@ -3,12 +3,14 @@ package com.xinlan.imserver.timeserver;
 import com.xinlan.imserver.Policy;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.CharsetUtil;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+@ChannelHandler.Sharable
 public class TimeHandler extends ChannelInboundHandlerAdapter {
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
