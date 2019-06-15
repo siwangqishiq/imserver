@@ -1,5 +1,7 @@
 package com.xinlan.http;
 
+import com.xinlan.http.action.IAction;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.*;
@@ -8,7 +10,10 @@ import io.netty.util.AsciiString;
 public class HttpHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
     private AsciiString contentType = HttpHeaderValues.TEXT_PLAIN;
 
-
+    private Router mRouter;
+    public HttpHandler(Router router){
+        mRouter = router;
+    }
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx,
@@ -47,8 +52,12 @@ public class HttpHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
     }
 
     public void handleHttpRequest(FullHttpRequest request , DefaultFullHttpResponse response){
-        String requestUri = request.uri();
-
+        IAction action = mRouter.findAction(request);
+        if(action != null){
+            action.service(request , response);
+        }else{
+            response.content().writeBytes(Resp.error(StatusCode.CODE_ERROR , StatusCode.NO_ACTION));
+        }
     }
 
 } //end class

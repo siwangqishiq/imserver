@@ -1,4 +1,4 @@
-package com.xinlan.http.resp;
+package com.xinlan.http.action;
 
 import io.netty.handler.codec.http.DefaultFullHttpResponse;
 import io.netty.handler.codec.http.FullHttpRequest;

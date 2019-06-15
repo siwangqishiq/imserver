@@ -18,6 +18,7 @@ public class HttpServer {
 
     public void starServer(int port) {
         System.out.println("start http server");
+        final Router router = new Router();
         EventLoopGroup group = new NioEventLoopGroup();
         try {
             ServerBootstrap strap = new ServerBootstrap();
@@ -30,7 +31,7 @@ public class HttpServer {
                             pipline.addLast("decoder", new HttpRequestDecoder());
                             pipline.addLast("encoder", new HttpResponseEncoder());
                             pipline.addLast("aggregator", new HttpObjectAggregator(512 * 1024));
-                            pipline.addLast("handler", new HttpHandler());
+                            pipline.addLast("handler", new HttpHandler(router));
                         }
                     })
                     .option(ChannelOption.SO_BACKLOG, 128) // determining the number of connections queued
