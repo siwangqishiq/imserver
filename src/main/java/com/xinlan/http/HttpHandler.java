@@ -1,5 +1,6 @@
 package com.xinlan.http;
 
+import com.alibaba.fastjson.JSON;
 import com.xinlan.http.action.IAction;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
@@ -56,7 +57,8 @@ public class HttpHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
         if(action != null){
             action.service(request , response);
         }else{
-            response.content().writeBytes(Resp.error(StatusCode.CODE_ERROR , StatusCode.NO_ACTION));
+            Resp resp = Resp.error(StatusCode.CODE_ERROR , StatusCode.NO_ACTION);
+            response.content().writeBytes(JSON.toJSONBytes(resp));
         }
     }
 

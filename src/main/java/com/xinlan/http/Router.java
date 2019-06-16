@@ -1,9 +1,6 @@
 package com.xinlan.http;
 
-import com.xinlan.http.action.Hello2Action;
-import com.xinlan.http.action.HelloAction;
-import com.xinlan.http.action.IAction;
-import com.xinlan.http.action.RegisterAccountAction;
+import com.xinlan.http.action.*;
 import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.QueryStringDecoder;
 
@@ -21,6 +18,8 @@ public class Router {
         addRouters(HelloAction.class);
         addRouters(Hello2Action.class);
         addRouters(RegisterAccountAction.class);
+        addRouters(GetUserAction.class);
+
     }
 
     public IAction findAction(FullHttpRequest request){

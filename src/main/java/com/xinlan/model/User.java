@@ -7,6 +7,9 @@ public class User {
     private long id;
     private String uid;
     private String account;
+    private String name;
+    private String nick;
+
     private int age = -1;
     private int state = STATE_NORMAL;
     private String extra;
@@ -57,5 +60,21 @@ public class User {
 
     public void setExtra(String extra) {
         this.extra = extra;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getNick() {
+        return nick;
+    }
+
+    public void setNick(String nick) {
+        this.nick = nick;
     }
 }//end class

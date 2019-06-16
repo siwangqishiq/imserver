@@ -1,8 +1,5 @@
 package com.xinlan.http;
 
-import com.alibaba.fastjson.JSON;
-import io.netty.util.CharsetUtil;
-
 public class Resp<T> {
     private int code;
     private String msg;
@@ -37,8 +34,14 @@ public class Resp<T> {
         this.data = data;
     }
 
-    public static byte[] error(int code , String msg){
+    public static Resp error(int code , String msg){
         Resp res = new Resp(code , msg);
-        return JSON.toJSONString(res).getBytes(CharsetUtil.UTF_8);
+        return res;
+    }
+
+    public static <T> Resp<T> createSuccess(T data){
+        Resp<T> resp = new Resp<T>(StatusCode.CODE_SUCCESS , null);
+        resp.setData(data);
+        return resp;
     }
 }

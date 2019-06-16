@@ -1,9 +1,13 @@
 package com.xinlan.http.action;
 
+import com.alibaba.fastjson.JSONObject;
 import com.xinlan.http.RequestParser;
+import com.xinlan.http.Resp;
+import com.xinlan.http.StatusCode;
 import io.netty.handler.codec.http.DefaultFullHttpResponse;
 import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.HttpMethod;
+import io.netty.util.CharsetUtil;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -22,5 +26,18 @@ public abstract class BaseAction implements IAction {
             e.printStackTrace();
         }
         return new HashMap<String, String>();
+    }
+
+    public void writeHttpResponse(DefaultFullHttpResponse response , Resp resp){
+        if(response == null)
+            return;
+
+        if(resp == null){
+            response.content().writeBytes(
+                    JSONObject.toJSONString(
+                                    Resp.error(StatusCode.CODE_ERROR,StatusCode.DATA_NULL)).getBytes(CharsetUtil.UTF_8));
+            return;
+        }
+        response.content().writeBytes(JSONObject.toJSONString(resp).getBytes(CharsetUtil.UTF_8));
     }
 }//end class
