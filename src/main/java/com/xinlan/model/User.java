@@ -1,32 +1,33 @@
 package com.xinlan.model;
 
+/**
+ *
+ */
 public class User {
-    public static final int STATE_NORMAL = 1;
-    public static final int STATE_REMOVED = 2;
-
-    private long id;
-    private String uid;
+    private long uid;
     private String account;
-    private String name;
     private String nick;
-
-    private int age = -1;
-    private int state = STATE_NORMAL;
+    private int sex;
+    private String slogan;
+    private String details;
+    private String avator;
+    private String mobile;
     private String extra;
+    private String pwd;
 
-    public long getId() {
-        return id;
+    public String getPwd() {
+        return pwd;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
     }
 
-    public String getUid() {
+    public long getUid() {
         return uid;
     }
 
-    public void setUid(String uid) {
+    public void setUid(long uid) {
         this.uid = uid;
     }
 
@@ -38,20 +39,36 @@ public class User {
         this.account = account;
     }
 
-    public int getAge() {
-        return age;
+    public String getNick() {
+        return nick;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setNick(String nick) {
+        this.nick = nick;
     }
 
-    public int getState() {
-        return state;
+    public int getSex() {
+        return sex;
     }
 
-    public void setState(int state) {
-        this.state = state;
+    public void setSex(int sex) {
+        this.sex = sex;
+    }
+
+    public String getSlogan() {
+        return slogan;
+    }
+
+    public void setSlogan(String slogan) {
+        this.slogan = slogan;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
     }
 
     public String getExtra() {
@@ -62,19 +79,20 @@ public class User {
         this.extra = extra;
     }
 
-    public String getName() {
-        return name;
+    public String getAvator() {
+        return avator;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAvator(String avator) {
+        this.avator = avator;
     }
 
-    public String getNick() {
-        return nick;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setNick(String nick) {
-        this.nick = nick;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
+
 }//end class

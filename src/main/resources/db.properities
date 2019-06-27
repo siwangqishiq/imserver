@@ -1,0 +1,5 @@
+jdbc.driverClassName=org.sqlite.JDBC
+jdbc.name=server.db
+jdbc.url=jdbc:sqlite:server.db
+jdbc.username=
+jdbc.password=
