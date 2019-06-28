@@ -4,7 +4,9 @@ import com.xinlan.model.User;
 
 public interface UserDao {
 
-    public long addUser(User user);
+    long addUser(User user);
 
-    public void updateUser(User user);
+    User queryByUid(long uid);
+
+    void updateUser(User user);
 }

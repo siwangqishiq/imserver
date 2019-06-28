@@ -14,7 +14,15 @@ public class UserDaoImpl implements UserDao {
     @Override
     public long addUser(User user) {
         int ret = sqlSession.insert("User.add" , user);
+        if(ret > 0){
+            return user.getUid();
+        }
         return ret;
+    }
+
+    @Override
+    public User queryByUid(long uid) {
+        return sqlSession.selectOne("User.select_by_uid",uid);
     }
 
     @Override

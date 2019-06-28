@@ -13,10 +13,12 @@ import java.sql.Connection;
 
 public class UserServiceTest {
     public Connection con;
+    public UserService mUserService;
 
     @Before
     public void initCon(){
         con = DBUtils.getSqlSession().getConnection();
+        mUserService = ServerContext.getInstance().getUserService();
     }
 
     @Test
@@ -36,5 +38,25 @@ public class UserServiceTest {
         user.setPwd("12345678");
         long result = userService.addUser(user);
         Assert.assertTrue(result > 0);
+    }
+
+    @Test
+    public void testQueryUserByUid(){
+        User user = new User();
+        user.setAccount("maolilan2");
+        user.setNick("毛利兰2");
+        user.setAge(18);
+        user.setState(User.STATE_NORMAL);
+        user.setPwd("12345678");
+        long uid = mUserService.addUser(user);
+        System.out.println("uid = " + uid);
+        user.setUid(uid);
+
+        User u = mUserService.queryUser(uid);
+        Assert.assertEquals(uid , u.getUid());
+        Assert.assertEquals("maolilan2" , u.getAccount());
+        Assert.assertEquals(18 , u.getAge());
+        Assert.assertEquals(User.STATE_NORMAL , u.getState());
+        Assert.assertEquals("12345678" , u.getPwd());
     }
 }//end class

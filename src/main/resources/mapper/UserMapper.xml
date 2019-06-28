@@ -14,5 +14,13 @@
             #{account},#{sex},#{slogan},#{details},#{avator},#{mobile},
             #{extra},#{pwd},#{state},#{age}
         );
+<!--        <selectKey resultType="int" keyProperty="uid" order="AFTER">-->
+<!--            select max(rowid) from User-->
+<!--        </selectKey>-->
     </insert>
+
+    <select id = "select_by_uid" parameterType="long" resultType = "com.xinlan.model.User">
+        select uid , account, sex, slogan, details, avator, mobile,
+        extra, pwd, state, age from User where uid = #{uid}
+    </select>
 </mapper>

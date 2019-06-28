@@ -15,6 +15,10 @@ public class UserService {
         return userDao.addUser(user);
     }
 
+    public User queryUser(long uid){
+        return userDao.queryByUid(uid);
+    }
+
     public void updateUser(User user){
         userDao.updateUser(user);
     }
