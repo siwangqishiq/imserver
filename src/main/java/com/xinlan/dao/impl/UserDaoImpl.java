@@ -13,11 +13,11 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public long addUser(User user) {
-        return 0;
+        int ret = sqlSession.insert("User.add" , user);
+        return ret;
     }
 
     @Override
-    public long updateUser(User user) {
-        return 0;
+    public void updateUser(User user) {
     }
 }

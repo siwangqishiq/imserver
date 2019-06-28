@@ -7,9 +7,7 @@ CREATE TABLE User(
    avator VARCHAR(1024),
    mobile CHAR(64),
    extra VARCHAR(1024),
-   pwd CHAR(256) NOT NULL
+   pwd CHAR(256) NOT NULL,
+   state INT NOT NULL,
+   age INT
 );
-
-
-
-
