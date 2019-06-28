@@ -4,8 +4,8 @@
     <!-- 引用db.properties配置文件 -->
     <properties resource="db.properties" />
     <!-- development : 开发模式 work : 工作模式 -->
-    <environments default="development">
-        <environment id="development">
+    <environments default="dev">
+        <environment id="dev">
             <transactionManager type="JDBC" />
             <!-- 配置数据库连接信息 -->
             <dataSource type="POOLED">
@@ -19,6 +19,7 @@
     </environments>
     <mappers>
         <!--指定mapper对应的xml -->
-        <mapper resource="com/ldxx/ms/orm/User.xml" />
+        <mapper resource="mapper/UserMapper.xml" />
+
     </mappers>
 </configuration>

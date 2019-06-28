@@ -31,10 +31,9 @@ public class GetUserAction extends BaseAction {
     @Override
     public void service(FullHttpRequest request, DefaultFullHttpResponse response) {
         User u = new User();
-        u.setId(1001);
+        u.setUid(1001);
         u.setAccount("siwangqishiq");
-        u.setName("死亡骑士");
-        u.setAge(11);
+        u.setNick("死亡骑士");
         Resp<User> resp = Resp.createSuccess(u);
 
         writeHttpResponse(response , resp);

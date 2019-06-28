@@ -13,7 +13,7 @@ public class DBUtils {
 
     static {
         try {
-            Reader reader = Resources.getResourceAsReader("mybatis.xml");
+            Reader reader = Resources.getResourceAsReader("mybatis_config.xml");
             SqlSessionFactory sqlMapper = new SqlSessionFactoryBuilder().build(reader);
             //设置为true 自动提交事务
             sqlSession = sqlMapper.openSession(true);

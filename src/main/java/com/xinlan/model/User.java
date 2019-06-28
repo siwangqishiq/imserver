@@ -4,6 +4,13 @@ package com.xinlan.model;
  *
  */
 public class User {
+    public static final int STATE_NORMAL = 1;
+    public static final int STATE_MUTE = 2;
+    public static final int STATE_REMOVE = -1;
+
+    public static final int SEX_FEMALE = 0; //女
+    public static final int SEX_MALE = 1; //男
+
     private long uid;
     private String account;
     private String nick;
@@ -14,6 +21,24 @@ public class User {
     private String mobile;
     private String extra;
     private String pwd;
+    private int state;
+    private int age;
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
 
     public String getPwd() {
         return pwd;

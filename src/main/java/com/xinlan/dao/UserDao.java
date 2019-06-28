@@ -1,5 +1,8 @@
 package com.xinlan.dao;
 
-public interface UserDao {
+import com.xinlan.model.User;
 
+public interface UserDao {
+    public long addUser(User user);
+    public long updateUser(User user);
 }
