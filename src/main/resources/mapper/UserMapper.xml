@@ -23,4 +23,9 @@
         select uid , account, sex, slogan, details, avator, mobile,
         extra, pwd, state, age from User where uid = #{uid}
     </select>
+
+    <select id = "select_by_account" parameterType="string" resultType = "com.xinlan.model.User">
+        select uid , account, sex, slogan, details, avator, mobile,
+        extra, pwd, state, age from User where account = #{account}
+    </select>
 </mapper>

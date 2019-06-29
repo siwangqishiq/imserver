@@ -1,13 +1,11 @@
 package com.xinlan.dao;
 
-import com.xinlan.dao.impl.UserDaoImpl;
 import com.xinlan.model.User;
 import com.xinlan.service.ServerContext;
 import com.xinlan.service.UserService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.omg.IOP.ServiceContext;
 
 import java.sql.Connection;
 
@@ -58,5 +56,28 @@ public class UserServiceTest {
         Assert.assertEquals(18 , u.getAge());
         Assert.assertEquals(User.STATE_NORMAL , u.getState());
         Assert.assertEquals("12345678" , u.getPwd());
+    }
+
+    @Test
+    public void testQueryUserByAccount(){
+        User user = new User();
+        user.setAccount("maolilan3");
+        user.setNick("毛利兰3");
+        user.setAge(18);
+        user.setState(User.STATE_NORMAL);
+        user.setPwd("12345678");
+        long uid = mUserService.addUser(user);
+        System.out.println("uid = " + uid);
+        user.setUid(uid);
+
+        User u = mUserService.queryUserByAccount(user.getAccount());
+
+        Assert.assertEquals(user.getAccount() , u.getAccount());
+        Assert.assertEquals(user.getAge() , u.getAge());
+        Assert.assertEquals(user.getState() , u.getState());
+        Assert.assertEquals(user.getPwd() , u.getPwd());
+
+        User u2 = mUserService.queryUserByAccount("zheshisha");
+        Assert.assertNull(u2);
     }
 }//end class

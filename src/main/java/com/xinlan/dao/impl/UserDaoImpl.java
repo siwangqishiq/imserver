@@ -4,6 +4,8 @@ import com.xinlan.dao.UserDao;
 import com.xinlan.model.User;
 import org.apache.ibatis.session.SqlSession;
 
+import java.util.List;
+
 public class UserDaoImpl implements UserDao {
     public SqlSession sqlSession;
 
@@ -23,6 +25,11 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User queryByUid(long uid) {
         return sqlSession.selectOne("User.select_by_uid",uid);
+    }
+
+    @Override
+    public List<User> queryByAccount(String account) {
+        return sqlSession.selectList("User.select_by_account" , account);
     }
 
     @Override
