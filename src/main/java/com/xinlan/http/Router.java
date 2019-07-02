@@ -19,7 +19,7 @@ public class Router {
         addRouters(Hello2Action.class);
         addRouters(RegisterAccountAction.class);
         addRouters(GetUserAction.class);
-
+        addRouters(CreateUserAction.class);
     }
 
     public IAction findAction(FullHttpRequest request){
