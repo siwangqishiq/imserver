@@ -9,10 +9,10 @@
             keyProperty="uid">
         insert into User (
             account, sex, slogan, details, avator, mobile,
-            extra, pwd, state, age
+            extra, pwd, state, age , createTime, updateTime
         ) values (
             #{account},#{sex},#{slogan},#{details},#{avator},#{mobile},
-            #{extra},#{pwd},#{state},#{age}
+            #{extra},#{pwd},#{state},#{age}, #{createTime} , #{updateTime}
         );
 <!--        <selectKey resultType="int" keyProperty="uid" order="AFTER">-->
 <!--            select max(rowid) from User-->

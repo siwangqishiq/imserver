@@ -23,6 +23,8 @@ public class User {
     private String pwd;
     private int state;
     private int age;
+    private long createTime;
+    private long updateTime;
 
     public int getAge() {
         return age;
@@ -120,4 +122,19 @@ public class User {
         this.mobile = mobile;
     }
 
+    public long getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(long createTime) {
+        this.createTime = createTime;
+    }
+
+    public long getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(long updateTime) {
+        this.updateTime = updateTime;
+    }
 }//end class

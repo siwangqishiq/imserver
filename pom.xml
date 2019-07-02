@@ -76,10 +76,11 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.4</version>
+            <version>1.2.58</version>
         </dependency>
         <!--<dependency>-->
         <!--<groupId>com.google.protobuf</groupId>-->

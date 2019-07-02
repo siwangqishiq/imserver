@@ -34,6 +34,8 @@ public class UserServiceTest {
         user.setAge(18);
         user.setState(User.STATE_NORMAL);
         user.setPwd("12345678");
+        user.setCreateTime(System.currentTimeMillis());
+        user.setUpdateTime(System.currentTimeMillis());
         long result = userService.addUser(user);
         Assert.assertTrue(result > 0);
     }
@@ -46,6 +48,8 @@ public class UserServiceTest {
         user.setAge(18);
         user.setState(User.STATE_NORMAL);
         user.setPwd("12345678");
+        user.setCreateTime(System.currentTimeMillis());
+        user.setUpdateTime(System.currentTimeMillis());
         long uid = mUserService.addUser(user);
         System.out.println("uid = " + uid);
         user.setUid(uid);
@@ -66,6 +70,8 @@ public class UserServiceTest {
         user.setAge(18);
         user.setState(User.STATE_NORMAL);
         user.setPwd("12345678");
+        user.setCreateTime(System.currentTimeMillis());
+        user.setUpdateTime(System.currentTimeMillis());
         long uid = mUserService.addUser(user);
         System.out.println("uid = " + uid);
         user.setUid(uid);

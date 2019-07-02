@@ -9,5 +9,7 @@ CREATE TABLE User(
    extra VARCHAR(1024),
    pwd CHAR(256) NOT NULL,
    state INT NOT NULL,
-   age INT
+   age INT,
+   createTime BIGINT,
+   updateTime BIGINT
 );
