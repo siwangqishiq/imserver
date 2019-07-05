@@ -1,11 +1,13 @@
 package com.xinlan.http;
 
 import com.xinlan.http.action.*;
+import com.xinlan.widget.AnnoManageUtil;
 import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.QueryStringDecoder;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class Router {
     private Map<String, IAction> routers = new HashMap<String, IAction>();
@@ -15,11 +17,10 @@ public class Router {
     }
 
     private void initRouter(){
-        addRouters(HelloAction.class);
-        addRouters(Hello2Action.class);
-        addRouters(RegisterAccountAction.class);
-        addRouters(GetUserAction.class);
-        addRouters(CreateUserAction.class);
+        Set<Class> actionsClazz = AnnoManageUtil.findAllHttpBeans();
+        for(Class clazz : actionsClazz){
+            addRouters(clazz);
+        }//end for each
     }
 
     public IAction findAction(FullHttpRequest request){

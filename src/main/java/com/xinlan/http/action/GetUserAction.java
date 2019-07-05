@@ -3,6 +3,7 @@ package com.xinlan.http.action;
 import com.xinlan.http.RequestParser;
 import com.xinlan.http.Resp;
 import com.xinlan.model.User;
+import com.xinlan.widget.HttpComponent;
 import io.netty.handler.codec.http.DefaultFullHttpResponse;
 import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.HttpMethod;
@@ -10,6 +11,7 @@ import io.netty.handler.codec.http.HttpMethod;
 /**
  * 返回一个用户信息
  */
+@HttpComponent
 public class GetUserAction extends BaseAction {
     private RequestParser parser;
 

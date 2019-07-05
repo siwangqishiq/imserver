@@ -1,5 +1,6 @@
 package com.xinlan.http.action;
 
+import com.xinlan.widget.HttpComponent;
 import io.netty.handler.codec.http.DefaultFullHttpResponse;
 import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.HttpMethod;
@@ -12,6 +13,7 @@ import java.util.Map;
  *
  *
  */
+@HttpComponent
 public class CreateUserAction extends BaseAction {
 
     @Override

@@ -1,9 +1,11 @@
 package com.xinlan.http.action;
 
+import com.xinlan.widget.HttpComponent;
 import io.netty.handler.codec.http.DefaultFullHttpResponse;
 import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.HttpMethod;
 
+@HttpComponent
 public class Hello2Action implements IAction {
     @Override
     public HttpMethod getMethod() {

@@ -1,6 +1,7 @@
 package com.xinlan.http.action;
 
 import com.xinlan.http.RequestParser;
+import com.xinlan.widget.HttpComponent;
 import io.netty.handler.codec.http.DefaultFullHttpResponse;
 import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.HttpMethod;
@@ -11,6 +12,7 @@ import java.util.Map;
 /**
  * 注册
  */
+@HttpComponent
 public class RegisterAccountAction extends BaseAction {
     private RequestParser parser;
 
