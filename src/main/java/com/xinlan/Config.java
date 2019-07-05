@@ -7,5 +7,5 @@ public final class Config {
 
     public static final String CLOUD_STORAGE_PICPATH = "sqimage";
     public static final String CLOUD_STORAGE_USER = "luluxiu";
-    public static final String CLOUD_STORAGE_PWD = "M4nx69MqX6L43CNPz03UB8jsvnrgTzP7";
+    public static final String CLOUD_STORAGE_PWD = "PD6fckKA6CfP5QI6213L43hiHjNNQqBF";
 }

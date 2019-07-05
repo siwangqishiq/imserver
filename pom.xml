@@ -8,6 +8,7 @@
     <artifactId>imserver</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+
     <build>
         <plugins>
             <plugin>
@@ -16,6 +17,7 @@
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
+                    <encoding>utf8</encoding>
                 </configuration>
             </plugin>
 
@@ -31,7 +33,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>com.xinlan.imserver.echo.EchoServer</mainClass>
+                    <mainClass>com.xinlan.http.HttpServer</mainClass>
                     <arguments>
                         <argument>9999</argument>
                     </arguments>

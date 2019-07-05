@@ -18,11 +18,13 @@ public class CloudStorageTest {
         upyun.setDebug(true);
         upyun.setApiDomain(UpYun.ED_AUTO);
 
-        File file = new File("D:\\test.jfif");
-        // 上传文件，并自动创建父级目录（最多10级）
-        boolean result = upyun.writeFile("/sqimage/panyitest", file, true);
+        File file = new File("D:\\BaiduNetdiskDownload\\新建文件夹\\003.jpg");
+        upyun.setContentMD5(UpYun.md5(file));
+        upyun.setTimeout(120);
+        //upyun.setFileSecret("bac");
+//        // 上传文件，并自动创建父级目录（最多10级）
+        boolean result = upyun.writeFile("/"+System.currentTimeMillis()+"_sample.jpeg", file, true);
         Assert.assertTrue(result);
-
         // 图片宽度
         System.out.println("图片宽度:" + upyun.getPicWidth());
         // 图片高度
