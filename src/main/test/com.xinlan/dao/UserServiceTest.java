@@ -1,5 +1,6 @@
 package com.xinlan.dao;
 
+import com.xinlan.exception.CommonException;
 import com.xinlan.model.User;
 import com.xinlan.service.ServerContext;
 import com.xinlan.service.UserService;
@@ -85,5 +86,31 @@ public class UserServiceTest {
 
         User u2 = mUserService.queryUserByAccount("zheshisha");
         Assert.assertNull(u2);
+    }
+
+
+    @Test
+    public void testUserAdd(){
+        User user = new User();
+        user.setAccount("maolilan");
+        user.setNick("毛利兰3");
+        user.setAge(18);
+        user.setState(User.STATE_NORMAL);
+        user.setPwd("12345678");
+        user.setCreateTime(System.currentTimeMillis());
+        user.setUpdateTime(System.currentTimeMillis());
+        long uid = mUserService.addUser(user);
+        System.out.println("uid = " + uid);
+        user.setUid(uid);
+
+        boolean abort = false;
+        try {
+            mUserService.addUser("maolilan" , "123" , "http://ssss" , 1);
+        } catch (CommonException e) {
+            e.printStackTrace();
+            abort = true;
+        }
+        Assert.assertTrue(abort);
+
     }
 }//end class

@@ -17,7 +17,7 @@ public class User {
     private int sex;
     private String slogan;
     private String details;
-    private String avator;
+    private String avatar;
     private String mobile;
     private String extra;
     private String pwd;
@@ -106,14 +106,6 @@ public class User {
         this.extra = extra;
     }
 
-    public String getAvator() {
-        return avator;
-    }
-
-    public void setAvator(String avator) {
-        this.avator = avator;
-    }
-
     public String getMobile() {
         return mobile;
     }
@@ -124,6 +116,14 @@ public class User {
 
     public long getCreateTime() {
         return createTime;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public void setCreateTime(long createTime) {

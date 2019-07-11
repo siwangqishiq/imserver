@@ -8,10 +8,10 @@
             flushCache="true"
             keyProperty="uid">
         insert into User (
-            account, sex, slogan, details, avator, mobile,
+            account, sex, slogan, details, avatar, mobile,
             extra, pwd, state, age , createTime, updateTime
         ) values (
-            #{account},#{sex},#{slogan},#{details},#{avator},#{mobile},
+            #{account},#{sex},#{slogan},#{details},#{avatar},#{mobile},
             #{extra},#{pwd},#{state},#{age}, #{createTime} , #{updateTime}
         );
 <!--        <selectKey resultType="int" keyProperty="uid" order="AFTER">-->
@@ -20,12 +20,12 @@
     </insert>
 
     <select id = "select_by_uid" parameterType="long" resultType = "com.xinlan.model.User">
-        select uid , account, sex, slogan, details, avator, mobile,
+        select uid , account, sex, slogan, details, avatar, mobile,
         extra, pwd, state, age from User where uid = #{uid}
     </select>
 
     <select id = "select_by_account" parameterType="string" resultType = "com.xinlan.model.User">
-        select uid , account, sex, slogan, details, avator, mobile,
+        select uid , account, sex, slogan, details, avatar, mobile,
         extra, pwd, state, age from User where account = #{account}
     </select>
 </mapper>

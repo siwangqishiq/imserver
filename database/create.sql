@@ -4,7 +4,7 @@ CREATE TABLE User(
    sex  INT  NOT NULL,
    slogan VARCHAR(512),
    details VARCHAR(1024),
-   avator VARCHAR(1024),
+   avatar VARCHAR(1024),
    mobile CHAR(64),
    extra VARCHAR(1024),
    pwd CHAR(256) NOT NULL,
