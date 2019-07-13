@@ -9,6 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.Connection;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.CyclicBarrier;
 
 public class UserServiceTest {
     public Connection con;
@@ -112,5 +114,44 @@ public class UserServiceTest {
         }
         Assert.assertTrue(abort);
 
+    }
+
+
+    @Test
+    public void testConcurrentDB(){
+        final int totoalTimes = 10;
+        final CountDownLatch count = new CountDownLatch(totoalTimes);
+        for(int i = 0 ; i < totoalTimes;i++){
+            final int index = i;
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    User user = new User();
+                    user.setAccount("maolilan"+String.valueOf(index)+"_"+System.currentTimeMillis());
+                    user.setNick("毛利兰");
+                    user.setAge(18);
+                    user.setState(User.STATE_NORMAL);
+                    user.setPwd("12345678");
+                    user.setCreateTime(System.currentTimeMillis());
+                    user.setUpdateTime(System.currentTimeMillis());
+                    System.out.println(mUserService.hashCode());
+                    long uid = mUserService.addUser(user);
+                    System.out.println("uid = " + uid);
+                    user.setUid(uid);
+                    Assert.assertTrue(user.getUid() > 0);
+                    count.countDown();
+                    //System.out.println("1111");
+                }
+            }).start();
+        }//end for i
+
+        try {
+            System.out.println("count = " + count.getCount());
+            count.await();
+            System.out.println("count = " + count.getCount());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("thread all done！");
     }
 }//end class

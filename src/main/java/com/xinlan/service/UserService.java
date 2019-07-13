@@ -6,21 +6,39 @@ import com.xinlan.exception.CommonException;
 import com.xinlan.model.User;
 
 import java.util.List;
+import java.util.concurrent.RejectedExecutionException;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-public class UserService {
+public class UserService extends BaseService {
     private UserDao userDao;
 
-    public UserService(){
+    public UserService() {
         userDao = DaoFactory.genUserDao();
     }
 
-    public long addUser(User user){
-        return userDao.addUser(user);
+    public long addUser(User user) {
+//        if(mWriteLock.tryLock()){
+//            try{
+//                return userDao.addUser(user);
+//            }finally {
+//                mWriteLock.unlock();
+//            }
+//        }else{
+//            System.out.println("获取写锁失败");
+//            return -1;
+//        }
+        mWriteLock.lock();
+        try{
+            return userDao.addUser(user);
+        }finally {
+            mWriteLock.unlock();
+        }
     }
 
-    public User addUser(String account , String pwd , String avatar ,int male) throws CommonException {
+    public User addUser(String account, String pwd, String avatar, int male) throws CommonException {
         User u = queryUserByAccount(account);
-        if(u != null){
+        if (u != null) {
             throw new CommonException("此用户名已存在");
         }
 
@@ -36,19 +54,29 @@ public class UserService {
         return user;
     }
 
-    public User queryUser(long uid){
-        return userDao.queryByUid(uid);
+    public User queryUser(long uid) {
+        mReadLock.lock();
+        try {
+            return userDao.queryByUid(uid);
+        } finally {
+            mReadLock.unlock();
+        }
     }
 
-    public User queryUserByAccount(String account){
-        List<User> list = userDao.queryByAccount(account);
-        if(list != null && list.size() > 0)
-            return list.get(0);
+    public User queryUserByAccount(String account) {
+        mReadLock.lock();
+        try {
+            List<User> list = userDao.queryByAccount(account);
+            if (list != null && list.size() > 0)
+                return list.get(0);
 
-        return null;
+            return null;
+        } finally {
+            mReadLock.unlock();
+        }
     }
 
-    public void updateUser(User user){
+    public void updateUser(User user) {
         userDao.updateUser(user);
     }
 
