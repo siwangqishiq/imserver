@@ -18,19 +18,47 @@ public class TestToken {
     @Test
     public void testVerfifyToken(){
         String token = SecurityHelper.createToken("siwangqishiq","123456");
-        Assert.assertEquals(SecurityHelper.vertifyToken(token) , TokenVertifyResult.success);
+        Assert.assertEquals(SecurityHelper.vertifyToken(token , null) , TokenVertifyResult.success);
     }
 
     @Test
     public void testVerfifyToken2(){
         String token = "dadasdsadsa";
-        System.out.println(SecurityHelper.vertifyToken(token));
-        Assert.assertNotEquals(SecurityHelper.vertifyToken(token) , TokenVertifyResult.success);
+        System.out.println(SecurityHelper.vertifyToken(token , null));
+        Assert.assertNotEquals(SecurityHelper.vertifyToken(token , null) , TokenVertifyResult.success);
     }
 
     @Test
     public void testTokenGetAccount(){
         String token = SecurityHelper.createToken("siwangqishiq","123456");
         Assert.assertEquals(SecurityHelper.getAccountFromToken(token) , "siwangqishiq");
+    }
+
+
+    @Test
+    public void testTokenValidateAccount(){
+        final String ACCOUNT = "siwangqishiq";
+        final String PWD= "123456";
+
+        final String token = SecurityHelper.createToken(ACCOUNT,PWD);
+        Assert.assertEquals(SecurityHelper.vertifyToken(token, new SecurityHelper.ICheck() {
+            @Override
+            public boolean validateAccount(String t, String account, String pwd) {
+                Assert.assertEquals(token , t);
+                Assert.assertEquals(ACCOUNT , account);
+                Assert.assertEquals(PWD , pwd);
+                return true;
+            }
+        }) , TokenVertifyResult.success);
+
+        Assert.assertEquals(SecurityHelper.vertifyToken(token, new SecurityHelper.ICheck() {
+            @Override
+            public boolean validateAccount(String t, String account, String pwd) {
+                Assert.assertEquals(token , t);
+                Assert.assertEquals(ACCOUNT , account);
+                Assert.assertEquals(PWD , pwd);
+                return false;
+            }
+        }) , TokenVertifyResult.error_invalide);
     }
 }//end class

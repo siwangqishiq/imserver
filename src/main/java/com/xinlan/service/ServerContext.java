@@ -1,11 +1,21 @@
 package com.xinlan.service;
 
+import com.xinlan.model.Account;
+import com.xinlan.model.User;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 public class ServerContext {
     private static transient ServerContext mInstance;
 
     private UserService userService;
+
+    private Map<String , Account> userDataCache;
+
     private ServerContext(){
         initService();
+        userDataCache = new ConcurrentHashMap<String, Account>();
     }
 
     protected void initService(){
@@ -26,5 +36,15 @@ public class ServerContext {
 
     public UserService getUserService(){
         return userService;
+    }
+
+    public Map<String , Account> getUserDataCache(String account){
+        return userDataCache;
+    }
+
+    public void putAccount(Account account){
+        if(account == null)
+            return;
+        userDataCache.put(account.getAccount() , account);
     }
 }//end class

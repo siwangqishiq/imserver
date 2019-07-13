@@ -56,7 +56,7 @@ public class SecurityHelper {
      * @param token
      * @return
      */
-    public static TokenVertifyResult vertifyToken(String token) {
+    public static TokenVertifyResult vertifyToken(final String token ,final ICheck check) {
         if (StringUtil.isNullOrEmpty(token))
             return TokenVertifyResult.error_expire;
 
@@ -64,12 +64,22 @@ public class SecurityHelper {
             DecodedJWT decodeJWT = verifier.verify(token);
             final String account = decodeJWT.getHeaderClaim(KEY_ACCOUNT).asString();
             final String pwd = decodeJWT.getHeaderClaim(KEY_PWD).asString();
-            return validateAccount(account, pwd) ? TokenVertifyResult.success : TokenVertifyResult.error_invalide;
+
+            if(check != null){
+                return check.validateAccount(token , account , pwd)
+                        ? TokenVertifyResult.success : TokenVertifyResult.error_invalide;
+            }else{
+                return TokenVertifyResult.success;
+            }
         } catch (JWTVerificationException e) {
             return TokenVertifyResult.error_expire;
         } catch (Exception e) {
             return TokenVertifyResult.unknow;
         }
+    }
+
+    public interface ICheck{
+        boolean validateAccount(final String token , final String account , final String pwd);
     }
 
     /**
@@ -78,7 +88,7 @@ public class SecurityHelper {
      * @return
      */
     public static String getAccountFromToken(String token) {
-        if (vertifyToken(token) == TokenVertifyResult.success) {
+        if (vertifyToken(token , null) == TokenVertifyResult.success) {
             DecodedJWT decodeJWT = verifier.verify(token);
             return decodeJWT.getHeaderClaim(KEY_ACCOUNT).asString();
         }

@@ -1,15 +1,21 @@
 package com.xinlan.http;
 
 import com.alibaba.fastjson.JSON;
+import com.xinlan.exception.CommonException;
 import com.xinlan.http.action.IAction;
+import com.xinlan.security.SecurityHelper;
+import com.xinlan.security.TokenVertifyResult;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.*;
 import io.netty.util.AsciiString;
+import io.netty.util.internal.StringUtil;
 
 public class HttpHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
     private AsciiString contentType = HttpHeaderValues.TEXT_PLAIN;
+
+    public static final String HEAD_AUTH_TOKEN = "auth_token";
 
     private Router mRouter;
     public HttpHandler(Router router){
@@ -55,10 +61,47 @@ public class HttpHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
     public void handleHttpRequest(FullHttpRequest request , DefaultFullHttpResponse response){
         IAction action = mRouter.findAction(request);
         if(action != null){
-            action.service(request , response);
+            if(action.needVertified()){
+                try {
+                    if(doVertified(request)){
+                        action.service(request , response);
+                    }
+                } catch (CommonException e) {
+                    Resp resp = Resp.error(StatusCode.CODE_ERROR_LOGIC , e.getErrorMsg());
+                    response.content().writeBytes(JSON.toJSONBytes(resp));
+                }
+            }else{
+                action.service(request , response);
+            }
         }else{
             Resp resp = Resp.error(StatusCode.CODE_ERROR , StatusCode.NO_ACTION);
             response.content().writeBytes(JSON.toJSONBytes(resp));
+        }
+    }
+
+    protected boolean doVertified(FullHttpRequest request) throws CommonException {
+        String token = request.headers().get(HEAD_AUTH_TOKEN);
+        if(StringUtil.isNullOrEmpty(token)){
+            throw new CommonException(StatusCode.NO_LOGIN);
+        }
+
+        TokenVertifyResult result = SecurityHelper.vertifyToken(token, new SecurityHelper.ICheck() {
+            @Override
+            public boolean validateAccount(String token, String account, String pwd) {
+
+                return false;
+            }
+        });
+        if(result == TokenVertifyResult.success){
+
+
+            return true;
+        }else if(result == TokenVertifyResult.error_expire){
+            throw new CommonException(StatusCode.TOKEN_EXPIRE);
+        }else if(result == TokenVertifyResult.error_invalide){
+            throw new CommonException(StatusCode.TOKEN_ERROR);
+        } else{
+            throw new CommonException(StatusCode.UNKNOW);
         }
     }
 
