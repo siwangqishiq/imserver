@@ -88,12 +88,10 @@ public class HttpHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
         TokenVertifyResult result = SecurityHelper.vertifyToken(token, new SecurityHelper.ICheck() {
             @Override
             public boolean validateAccount(String token, String account, String pwd) {
-
                 return false;
             }
         });
         if(result == TokenVertifyResult.success){
-
 
             return true;
         }else if(result == TokenVertifyResult.error_expire){

@@ -5,6 +5,7 @@ import com.xinlan.dao.UserDao;
 import com.xinlan.exception.CommonException;
 import com.xinlan.model.User;
 
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -47,6 +48,8 @@ public class UserService extends BaseService {
         user.setPwd(pwd);
         user.setAvatar(avatar);
         user.setState(male);
+        user.setCreateTime(new Date().getTime());
+        user.setUpdateTime(new Date().getTime());
 
         long uid = addUser(user);
         user.setUid(uid);

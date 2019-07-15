@@ -51,6 +51,10 @@ public class SecurityHelper {
         return token;
     }
 
+    public static String createToken(long uid, String pwd) {
+        return createToken(String.valueOf(uid) , pwd);
+    }
+
     /**
      * 验证Token
      * @param token

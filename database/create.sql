@@ -1,4 +1,4 @@
-CREATE TABLE User(
+create table if not exists User (
    uid  INTEGER PRIMARY KEY,
    account  CHAR(128)  NOT NULL,
    sex  INT  NOT NULL,

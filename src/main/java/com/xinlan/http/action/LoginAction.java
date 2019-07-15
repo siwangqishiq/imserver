@@ -73,7 +73,7 @@ public class LoginAction extends BaseAction {
         }
 
         //签发Token
-        final String token = SecurityHelper.createToken(account , pwd);
+        final String token = SecurityHelper.createToken(user.getUid() , pwd);
         if(StringUtil.isNullOrEmpty(token)) {
             writeHttpResponse(response, Resp.error(StatusCode.CODE_ERROR_LOGIC, "用户名或密码错误"));
             return false;

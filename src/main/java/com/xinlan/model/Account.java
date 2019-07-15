@@ -2,7 +2,7 @@ package com.xinlan.model;
 
 public class Account {
     private String token;
-    private long uid;
+    private String uid;
     private int sex;
     private String account;
     private String avatar;
@@ -12,7 +12,7 @@ public class Account {
         account.setToken(token);
         account.setAccount(user.getAccount());
         account.setSex(user.getSex());
-        account.setUid(user.getUid());
+        account.setUid(String.valueOf(user.getUid()));
         account.setAvatar(user.getAvatar());
         return account;
     }
@@ -25,11 +25,11 @@ public class Account {
         this.token = token;
     }
 
-    public long getUid() {
+    public String getUid() {
         return uid;
     }
 
-    public void setUid(long uid) {
+    public void setUid(String uid) {
         this.uid = uid;
     }
 
