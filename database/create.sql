@@ -13,3 +13,6 @@ create table if not exists User (
    createTime BIGINT,
    updateTime BIGINT
 );
+
+create index idx_uid on User (uid);
+create index idx_account on User (account);
