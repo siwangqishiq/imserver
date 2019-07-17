@@ -1,5 +1,6 @@
 package com.xinlan.http.action;
 
+import com.xinlan.model.Account;
 import io.netty.handler.codec.http.DefaultFullHttpResponse;
 import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.HttpMethod;
@@ -30,5 +31,15 @@ public interface IAction {
      */
     void service(FullHttpRequest request , DefaultFullHttpResponse response);
 
+    /**
+     * 获取Account
+     * @return
+     */
+    Account getAccount();
 
+    /**
+     * 验证后设置当前用户
+     * @param account
+     */
+    void setAccount(Account account);
 }

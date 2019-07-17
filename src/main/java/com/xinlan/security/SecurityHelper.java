@@ -83,7 +83,7 @@ public class SecurityHelper {
     }
 
     public interface ICheck{
-        boolean validateAccount(final String token , final String account , final String pwd);
+        boolean validateAccount(final String token , final String uid , final String pwd);
     }
 
     /**
@@ -98,9 +98,4 @@ public class SecurityHelper {
         }
         return null;
     }
-
-    private static boolean validateAccount(String account, String pwd) {
-        return true;
-    }
-
 }

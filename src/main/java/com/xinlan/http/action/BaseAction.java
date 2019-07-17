@@ -43,7 +43,13 @@ public abstract class BaseAction implements IAction {
         response.content().writeBytes(JSONObject.toJSONString(resp).getBytes(CharsetUtil.UTF_8));
     }
 
+    @Override
     public Account getAccount(){
         return mAccount;
+    }
+
+    @Override
+    public void setAccount(Account account) {
+        mAccount = account;
     }
 }//end class

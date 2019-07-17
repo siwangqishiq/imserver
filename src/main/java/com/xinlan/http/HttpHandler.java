@@ -3,8 +3,10 @@ package com.xinlan.http;
 import com.alibaba.fastjson.JSON;
 import com.xinlan.exception.CommonException;
 import com.xinlan.http.action.IAction;
+import com.xinlan.model.Account;
 import com.xinlan.security.SecurityHelper;
 import com.xinlan.security.TokenVertifyResult;
+import com.xinlan.service.ServerContext;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -59,18 +61,18 @@ public class HttpHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
     }
 
     public void handleHttpRequest(FullHttpRequest request , DefaultFullHttpResponse response){
-        IAction action = mRouter.findAction(request);
+        final IAction action = mRouter.findAction(request);
         if(action != null){
-            if(action.needVertified()){
+            if(action.needVertified()){ //需要授权的接口
                 try {
-                    if(doVertified(request)){
+                    if(doVertified(request , action)){
                         action.service(request , response);
                     }
                 } catch (CommonException e) {
                     Resp resp = Resp.error(StatusCode.CODE_ERROR_LOGIC , e.getErrorMsg());
                     response.content().writeBytes(JSON.toJSONBytes(resp));
                 }
-            }else{
+            }else{ //不需要授权的
                 action.service(request , response);
             }
         }else{
@@ -79,7 +81,7 @@ public class HttpHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
         }
     }
 
-    protected boolean doVertified(FullHttpRequest request) throws CommonException {
+    protected boolean doVertified(FullHttpRequest request ,final IAction action) throws CommonException {
         String token = request.headers().get(HEAD_AUTH_TOKEN);
         if(StringUtil.isNullOrEmpty(token)){
             throw new CommonException(StatusCode.NO_LOGIN);
@@ -88,11 +90,15 @@ public class HttpHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
         TokenVertifyResult result = SecurityHelper.vertifyToken(token, new SecurityHelper.ICheck() {
             @Override
             public boolean validateAccount(String token, String account, String pwd) {
-                return false;
+
+                return true;
             }
         });
         if(result == TokenVertifyResult.success){
-
+            if(action != null){
+                final Account account = ServerContext.getInstance().getAccountByUid(SecurityHelper.getAccountFromToken(token));
+                action.setAccount(account);
+            }
             return true;
         }else if(result == TokenVertifyResult.error_expire){
             throw new CommonException(StatusCode.TOKEN_EXPIRE);

@@ -15,6 +15,7 @@ public class ServerContext {
 
     private ServerContext(){
         initService();
+
         userDataCache = new ConcurrentHashMap<String, Account>();
     }
 
@@ -45,6 +46,10 @@ public class ServerContext {
     public void putAccount(Account account){
         if(account == null)
             return;
-        userDataCache.put(account.getAccount() , account);
+        userDataCache.put(account.getUid() , account);
+    }
+
+    public Account getAccountByUid(final String uid){
+        return userDataCache.get(uid);
     }
 }//end class
