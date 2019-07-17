@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package com.xinlan.model;
+
+option java_package = "com.xinlan.model";
+option java_outer_classname = "IMMsgWrapper";
+option optimize_for = SPEED;
+
+//  protoc src/main/java/com/xinlan/model/immsg.proto --java_out=src/main/java
+message IMMsg {
+    int32 magic_number = 1;
+    int32 version = 2;
+    string from = 3;
+    string msg_id = 4;
+    int32 time = 5;
+
+    enum MsgType{
+        CTL = 0;
+        MSG = 1;
+    }
+    MsgType type = 6;
+
+    message CtlContent{
+        enum CtlType{
+            conntect = 0;
+            login = 1;
+            pull = 2;
+        }
+        CtlType ctl_type = 1;
+        string content = 2;
+    }
+
+    message MsgContent{
+        enum SessionType{
+            P2P = 0;
+            Team = 1;
+        }
+
+        enum MsgType{
+            TEXT = 0;
+            IMAGE = 1;
+            TIPS = 2;
+            AUDIO = 3;
+            VIDEO = 4;
+            CUSTOM = 5;
+        }
+
+        SessionType session_type = 1;
+        MsgType msg_type = 2;
+        string account = 3;
+        string content = 4;
+    }
+
+    oneof content{
+        CtlContent ctl_content = 8;
+        MsgContent msg_content = 9;
+    }
+}

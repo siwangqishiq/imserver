@@ -2,6 +2,7 @@ package com.xinlan.imserver.timeserver;
 
 import com.xinlan.imserver.echo.EchoServer;
 import com.xinlan.imserver.echo.EchoServerHandler;
+import com.xinlan.model.IMMsgWrapper;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
